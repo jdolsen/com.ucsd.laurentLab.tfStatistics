@@ -18,7 +18,7 @@ public class Loader {
 		File subnetworks = new File("TF_6Clusters_two columns.txt");
 		BindingList bindingList = new BindingList();
 		HashSet<String> subnetNames = new HashSet<String>();
-		try {
+		try {  
 		 		 
 			String line;
 			
