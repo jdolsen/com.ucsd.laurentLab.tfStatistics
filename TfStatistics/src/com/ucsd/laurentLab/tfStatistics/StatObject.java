@@ -1,5 +1,6 @@
 package com.ucsd.laurentLab.tfStatistics;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import org.apache.commons.math3.distribution.NormalDistribution;
@@ -23,6 +24,9 @@ public class StatObject {
 	}
 	
 	public void incrementCount(){
+//		if(id.equals(" targets")){
+//			System.out.println(id + " incremented");
+//		}
 		count++;
 	}
 	
@@ -54,9 +58,9 @@ public class StatObject {
 		}
 	}
 
-	public void print(){
+	public void print(PrintWriter outFile){
 		if(numConnections !=0){
-			System.out.println(tf + ", " + id + ", " + mean + ", " + sigma + ", " + numConnections + ", "  + zValue + ", " + pValue );
+			outFile.println(tf + ", " + id + ", " + mean + ", " + sigma + ", " + numConnections + ", "  + zValue + ", " + pValue );
 		}
 	}
 

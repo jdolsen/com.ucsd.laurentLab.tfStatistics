@@ -1,5 +1,6 @@
 package com.ucsd.laurentLab.tfStatistics;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -54,12 +55,6 @@ public class TFStatObject {
 	public void setInSubnetwork(boolean isInSubnetwork) {
 		this.isInSubnetwork = isInSubnetwork;
 	}
-	
-	public void printAllStats(){
-		for(String s : statObjects.keySet()){
-			statObjects.get(s).print();
-		}
-	}
 
 	public ArrayList<String> getSources() {
 		return sources;
@@ -91,19 +86,16 @@ public class TFStatObject {
 		}
 	}
 	
-	public void printAll(){
-		//TODO: print to a file...
-		//System.out.print(id);
+	public void printAll(PrintWriter outFile){
 		for(String s : statObjects.keySet()){
-			statObjects.get(s).print();
+			statObjects.get(s).print(outFile);
 		}
-		//System.out.println("");
 	}
 
-	public void setStats() {
+	public void setStats(PrintWriter outFile) {
 		for(String s : statObjects.keySet()){
 			statObjects.get(s).setStats();
 		}	
-		printAll();
+		printAll(outFile);
 	}
 }

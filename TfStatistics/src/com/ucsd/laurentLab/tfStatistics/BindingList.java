@@ -1,5 +1,10 @@
 package com.ucsd.laurentLab.tfStatistics;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -66,8 +71,7 @@ public class BindingList {
 				obj.getStatObject(net+TFStatObject.TARGETS).incrementConnectionCount();
 				//update subnet objects
 				tfMap.get(keyNet).getStatObject(net+TFStatObject.TARGETS).incrementConnectionCount();
-			}			
-			
+			}						
 		}
 	}
 	
@@ -97,7 +101,7 @@ public class BindingList {
 				//update the counts for the subnets
 				srcNet.getStatObject(tgtTf.getSubNetworkMembership().getNetworkId() + TFStatObject.TARGETS).incrementCount();
 				tgtNet.getStatObject(srcTf.getSubNetworkMembership().getNetworkId() + TFStatObject.SOURCES).incrementCount();				
-			}			
+			} 
 		}
 		
 		//update all the stat objects for this shuffle
@@ -106,12 +110,24 @@ public class BindingList {
 		}
 	}
 	
-	public void calculateStats(){
-		System.out.println("Source, Statistic, mean, standard deviation, number of connections, z, p");
-		for(String s : tfMap.keySet()){
-			//TODO: somehow order things between setting stats and then printing them out
-			tfMap.get(s).setStats();
-		}
+	public void calculateAndSaveStats(String fName){		
+		try {
+			File out = new File(fName);
+			if(!out.exists()){
+				out.createNewFile();
+			}
+			
+			PrintWriter outFile = new PrintWriter(out);
+			outFile.println("Source, Statistic, mean, standard deviation, number of connections, z, p");
+			
+			for(String s : tfMap.keySet()){
+				tfMap.get(s).setStats(outFile);
+			}
+			
+			outFile.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
 	}
 
 	public ArrayList<String> getSources() {

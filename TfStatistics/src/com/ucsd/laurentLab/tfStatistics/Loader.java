@@ -13,9 +13,21 @@ import java.util.HashSet;
 public class Loader {
 
 	public static void main(String args[]){
-		System.out.println("Starting...");
-		File network = new File("All_TF_network.txt");
-		File subnetworks = new File("TF_6Clusters_two columns.txt");
+		
+		if(args.length < 3){
+			System.out.println("Incorrect arguments.  Please use the following format:");
+			System.out.println("loader transcription_factor_file_name.txt sub_network_file_name.txt output_file_name.txt");
+			System.exit(1);
+		}
+		
+		String inFileAll = args[0];
+		String inFileSubNet = args[1];
+		String outFile = args[2];
+		System.out.println("Starting with input files: " + inFileSubNet + ", " + inFileAll + " output file: " + outFile);
+		
+		File network = new File(inFileAll);
+		File subnetworks = new File(inFileSubNet);
+		
 		BindingList bindingList = new BindingList();
 		HashSet<String> subnetNames = new HashSet<String>();
 		try {  
@@ -69,9 +81,10 @@ public class Loader {
 				}
 				bindingList.doShuffle();
 			}
-			
+						
 			//use the results of the shuffle to calculate statistics 
-			bindingList.calculateStats();
+			bindingList.calculateAndSaveStats(outFile);
+			System.out.println("Done");
 			
 			networkReader.close();
 			subNetworkReader.close();
