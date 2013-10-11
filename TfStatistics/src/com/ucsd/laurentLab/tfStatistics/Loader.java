@@ -16,7 +16,7 @@ public class Loader {
 		
 		if(args.length < 3){
 			System.out.println("Incorrect arguments.  Please use the following format:");
-			System.out.println("loader transcription_factor_file_name.txt sub_network_file_name.txt output_file_name.txt");
+			System.out.println("java -jar TFStatistics.jar transcription_factor_file_name.txt sub_network_file_name.txt output_file_name.txt");
 			System.exit(1);
 		}
 		
